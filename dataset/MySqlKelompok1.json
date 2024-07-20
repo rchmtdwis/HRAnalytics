@@ -1,0 +1,23 @@
+{
+	"name": "MySqlKelompok1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySqlHanif",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		}
+	}
+}
