@@ -1,0 +1,9 @@
+{
+	"name": "adfkelompok1",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "75d25243-d3a8-4a69-b910-78d1d6e01097",
+		"tenantId": "8646a21e-ea44-48df-8c3b-17a1702a0bb7"
+	}
+}
