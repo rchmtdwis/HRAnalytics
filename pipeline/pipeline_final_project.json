@@ -288,7 +288,7 @@
 				]
 			},
 			{
-				"name": "Notebook1",
+				"name": "Transform and Load",
 				"type": "DatabricksNotebook",
 				"state": "Inactive",
 				"onInactiveMarkAs": "Succeeded",
@@ -325,7 +325,14 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok1@xundarimalamsuro.onmicrosoft.com/FinalProject/Untitled Notebook 2024-07-18 21:43:59"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricksKel1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
