@@ -18,7 +18,7 @@
 			},
 			"header": {
 				"type": "bool",
-				"defaultValue": "True"
+				"defaultValue": true
 			},
 			"delimiter": {
 				"type": "string",
