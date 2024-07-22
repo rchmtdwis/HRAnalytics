@@ -1,0 +1,13 @@
+{
+	"name": "MongoDbHanif",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "MongoDbV2",
+		"typeProperties": {
+			"connectionString": "mongodb+srv://admin:@cluster0.uv3zdyh.mongodb.net",
+			"database": "data",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDMxMjdCRDM3LTEwODItNDMzQi05OTNGLTM4RkE0MUU5NUJFQV8zZDZkYmE0YS1jNzM2LTRiMTgtODdkYi02M2Q4MDJjMzY3ZjUiDQp9"
+		}
+	}
+}
