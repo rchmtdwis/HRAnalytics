@@ -1,0 +1,17 @@
+{
+	"name": "HRAnalytics",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2024-07-23T04:10:00",
+				"timeZone": "SE Asia Standard Time"
+			}
+		}
+	}
+}
