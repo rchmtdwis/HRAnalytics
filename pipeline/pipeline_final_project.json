@@ -284,6 +284,8 @@
 			{
 				"name": "Transform and Load",
 				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Copy data Manager Survey",
