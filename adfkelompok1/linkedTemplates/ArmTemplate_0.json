@@ -1,0 +1,694 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adfkelompok1"
+		},
+		"ADLS_KEL1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS_KEL1'"
+		},
+		"AzureDatabricksKel1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksKel1'"
+		},
+		"MongoDbHanif_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MongoDbHanif'"
+		},
+		"MySqlHanif_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySqlHanif'"
+		},
+		"SqlServerKelompok1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServerKelompok1'"
+		},
+		"ADLS_KEL1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stracckelsatu.dfs.core.windows.net/"
+		},
+		"AzureDatabricksKel1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0716-051208-1x1ivyck"
+		},
+		"MongoDbHanif_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"MySqlHanif_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.34.222.232"
+		},
+		"MySqlHanif_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "KelompokSatu"
+		},
+		"MySqlHanif_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"SqlServerKelompok1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "generaldatakel1.database.windows.net"
+		},
+		"SqlServerKelompok1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "HRDatabase"
+		},
+		"SqlServerKelompok1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kelompok1"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS_KEL1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('ADLS_KEL1_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('ADLS_KEL1_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureDatabricksKel1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1288113788330575.15.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('AzureDatabricksKel1_accessToken')]"
+					},
+					"existingClusterId": "[parameters('AzureDatabricksKel1_properties_typeProperties_existingClusterId')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MongoDbHanif')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MongoDbV2",
+				"typeProperties": {
+					"connectionString": "[parameters('MongoDbHanif_connectionString')]",
+					"database": "[parameters('MongoDbHanif_properties_typeProperties_database')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MySqlHanif')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('MySqlHanif_properties_typeProperties_server')]",
+					"port": 3306,
+					"database": "[parameters('MySqlHanif_properties_typeProperties_database')]",
+					"username": "[parameters('MySqlHanif_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MySqlHanif_password')]"
+					},
+					"driverVersion": "v2"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerKelompok1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"server": "[parameters('SqlServerKelompok1_properties_typeProperties_server')]",
+					"database": "[parameters('SqlServerKelompok1_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": true,
+					"authenticationType": "SQL",
+					"userName": "[parameters('SqlServerKelompok1_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('SqlServerKelompok1_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ADLS_CSV_Kel1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLS_KEL1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"container_name": {
+						"type": "string",
+						"defaultValue": "processdata"
+					},
+					"folder_name": {
+						"type": "string"
+					},
+					"file_name": {
+						"type": "string"
+					},
+					"header": {
+						"type": "bool",
+						"defaultValue": true
+					},
+					"delimiter": {
+						"type": "string",
+						"defaultValue": ","
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().file_name",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().folder_name",
+							"type": "Expression"
+						},
+						"fileSystem": {
+							"value": "@dataset().container_name",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": {
+						"value": "@dataset().delimiter",
+						"type": "Expression"
+					},
+					"escapeChar": "\\",
+					"firstRowAsHeader": {
+						"value": "@dataset().header",
+						"type": "Expression"
+					},
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLS_KEL1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MongoDbHanif')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MongoDbHanif",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"collection_name": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "MongoDbV2Collection",
+				"schema": [],
+				"typeProperties": {
+					"collection": {
+						"value": "@dataset().collection_name",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MongoDbHanif')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MySqlKelompok1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MySqlHanif",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"table_name": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": {
+						"value": "@dataset().table_name",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MySqlHanif')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SqlServerKelompok1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "SqlServerKelompok1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"schema_name": {
+						"type": "string"
+					},
+					"table_name": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": {
+						"value": "@dataset().schema_name",
+						"type": "Expression"
+					},
+					"table": {
+						"value": "@dataset().table_name",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/SqlServerKelompok1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline_final_project')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data Employee Survey",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "surveydata",
+									"folder_name": "EmployeeSurveyCSV",
+									"file_name": "employee_survey_data.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "processdata",
+									"folder_name": {
+										"value": "@concat('staging/employee/',utcnow('yyyy-MM-dd'))",
+										"type": "Expression"
+									},
+									"file_name": "employee_survey_data.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy data Manager Survey",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "surveydata",
+									"folder_name": "ManagerSurveyCSV",
+									"file_name": "manager_survey_data.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "processdata",
+									"folder_name": {
+										"value": "@concat('staging/manager/',utcnow('yyyy-MM-dd'))",
+										"type": "Expression"
+									},
+									"file_name": "manager_survey_data.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy data General",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "SqlServerSource",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "SqlServerKelompok1",
+								"type": "DatasetReference",
+								"parameters": {
+									"schema_name": "dbo",
+									"table_name": "general_data"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "processdata",
+									"folder_name": {
+										"value": "@concat('staging/general/',utcnow('yyyy-MM-dd'))",
+										"type": "Expression"
+									},
+									"file_name": "general_data.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy data Attendance",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "MySqlSource"
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "MySqlKelompok1",
+								"type": "DatasetReference",
+								"parameters": {
+									"table_name": "Attendance"
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ADLS_CSV_Kel1",
+								"type": "DatasetReference",
+								"parameters": {
+									"container_name": "processdata",
+									"folder_name": {
+										"value": "@concat('staging/attendance/',utcnow('yyyy-MM-dd'))",
+										"type": "Expression"
+									},
+									"file_name": "attendance.csv",
+									"header": "True",
+									"delimiter": ","
+								}
+							}
+						]
+					},
+					{
+						"name": "Transform and Load",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Copy data Manager Survey",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy data General",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy data Attendance",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy data Employee Survey",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/kelompok1@xundarimalamsuro.onmicrosoft.com/FinalProject/Untitled Notebook 2024-07-18 21:43:59"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureDatabricksKel1",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ADLS_CSV_Kel1')]",
+				"[concat(variables('factoryId'), '/datasets/SqlServerKelompok1')]",
+				"[concat(variables('factoryId'), '/datasets/MySqlKelompok1')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureDatabricksKel1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/HRAnalytics')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pipeline_final_project",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2024-07-23T04:10:00",
+						"timeZone": "SE Asia Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pipeline_final_project')]"
+			]
+		}
+	]
+}

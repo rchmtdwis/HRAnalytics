@@ -1,0 +1,140 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adfkelompok1"
+		},
+		"ADLS_KEL1_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS_KEL1'"
+		},
+		"AzureDatabricksKel1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricksKel1'"
+		},
+		"MongoDbHanif_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'MongoDbHanif'"
+		},
+		"MySqlHanif_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySqlHanif'"
+		},
+		"SqlServerKelompok1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SqlServerKelompok1'"
+		},
+		"ADLS_KEL1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stracckelsatu.dfs.core.windows.net/"
+		},
+		"AzureDatabricksKel1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0716-051208-1x1ivyck"
+		},
+		"MongoDbHanif_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"MySqlHanif_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.34.222.232"
+		},
+		"MySqlHanif_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "KelompokSatu"
+		},
+		"MySqlHanif_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"SqlServerKelompok1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "generaldatakel1.database.windows.net"
+		},
+		"SqlServerKelompok1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "HRDatabase"
+		},
+		"SqlServerKelompok1_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "kelompok1"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adfkelompok1_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ADLS_KEL1_accountKey": {
+						"value": "[parameters('ADLS_KEL1_accountKey')]"
+					},
+					"AzureDatabricksKel1_accessToken": {
+						"value": "[parameters('AzureDatabricksKel1_accessToken')]"
+					},
+					"MongoDbHanif_connectionString": {
+						"value": "[parameters('MongoDbHanif_connectionString')]"
+					},
+					"MySqlHanif_password": {
+						"value": "[parameters('MySqlHanif_password')]"
+					},
+					"SqlServerKelompok1_password": {
+						"value": "[parameters('SqlServerKelompok1_password')]"
+					},
+					"ADLS_KEL1_properties_typeProperties_url": {
+						"value": "[parameters('ADLS_KEL1_properties_typeProperties_url')]"
+					},
+					"AzureDatabricksKel1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricksKel1_properties_typeProperties_existingClusterId')]"
+					},
+					"MongoDbHanif_properties_typeProperties_database": {
+						"value": "[parameters('MongoDbHanif_properties_typeProperties_database')]"
+					},
+					"MySqlHanif_properties_typeProperties_server": {
+						"value": "[parameters('MySqlHanif_properties_typeProperties_server')]"
+					},
+					"MySqlHanif_properties_typeProperties_database": {
+						"value": "[parameters('MySqlHanif_properties_typeProperties_database')]"
+					},
+					"MySqlHanif_properties_typeProperties_username": {
+						"value": "[parameters('MySqlHanif_properties_typeProperties_username')]"
+					},
+					"SqlServerKelompok1_properties_typeProperties_server": {
+						"value": "[parameters('SqlServerKelompok1_properties_typeProperties_server')]"
+					},
+					"SqlServerKelompok1_properties_typeProperties_database": {
+						"value": "[parameters('SqlServerKelompok1_properties_typeProperties_database')]"
+					},
+					"SqlServerKelompok1_properties_typeProperties_userName": {
+						"value": "[parameters('SqlServerKelompok1_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

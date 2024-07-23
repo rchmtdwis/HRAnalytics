@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adfkelompok1"
+		},
+		"ADLS_KEL1_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricksKel1_accessToken": {
+			"value": ""
+		},
+		"MongoDbHanif_connectionString": {
+			"value": ""
+		},
+		"MySqlHanif_password": {
+			"value": ""
+		},
+		"SqlServerKelompok1_password": {
+			"value": ""
+		},
+		"ADLS_KEL1_properties_typeProperties_url": {
+			"value": "https://stracckelsatu.dfs.core.windows.net/"
+		},
+		"AzureDatabricksKel1_properties_typeProperties_existingClusterId": {
+			"value": "0716-051208-1x1ivyck"
+		},
+		"MongoDbHanif_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"MySqlHanif_properties_typeProperties_server": {
+			"value": "34.34.222.232"
+		},
+		"MySqlHanif_properties_typeProperties_database": {
+			"value": "KelompokSatu"
+		},
+		"MySqlHanif_properties_typeProperties_username": {
+			"value": "admin"
+		},
+		"SqlServerKelompok1_properties_typeProperties_server": {
+			"value": "generaldatakel1.database.windows.net"
+		},
+		"SqlServerKelompok1_properties_typeProperties_database": {
+			"value": "HRDatabase"
+		},
+		"SqlServerKelompok1_properties_typeProperties_userName": {
+			"value": "kelompok1"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
