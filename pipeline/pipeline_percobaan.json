@@ -345,6 +345,36 @@
 					"secureInput": false
 				},
 				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[fin].[sp_drop_foreign_key_create_table]"
+				},
+				"linkedServiceName": {
+					"referenceName": "SqlServerKelompok1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Install Foreign Key",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Transform and Load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[fin].[sp_install_foreign_key]"
+				},
 				"linkedServiceName": {
 					"referenceName": "SqlServerKelompok1",
 					"type": "LinkedServiceReference"
