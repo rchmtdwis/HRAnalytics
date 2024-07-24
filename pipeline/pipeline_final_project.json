@@ -319,10 +319,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Users/kelompok1@xundarimalamsuro.onmicrosoft.com/FinalProject/Untitled Notebook 2024-07-18 21:43:59"
+					"notebookPath": "/Users/kelompok_5@dunialcwefdit.onmicrosoft.com/Kelompok1/FinalProject/MergeFact"
 				},
 				"linkedServiceName": {
-					"referenceName": "AzureDatabricksKel1",
+					"referenceName": "AzureDatabrickskel5",
 					"type": "LinkedServiceReference"
 				}
 			}
