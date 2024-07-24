@@ -286,6 +286,39 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
+						"activity": "Stored procedure1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok_5@dunialcwefdit.onmicrosoft.com/Kelompok1/Percobaan/MergeFact"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabrickskel5",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Stored procedure1",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy data Employee Survey",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
 						"activity": "Copy data Manager Survey",
 						"dependencyConditions": [
 							"Succeeded"
@@ -302,12 +335,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "Copy data Employee Survey",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"policy": {
@@ -318,11 +345,8 @@
 					"secureInput": false
 				},
 				"userProperties": [],
-				"typeProperties": {
-					"notebookPath": "/Users/kelompok_5@dunialcwefdit.onmicrosoft.com/Kelompok1/FinalProject/MergeFact"
-				},
 				"linkedServiceName": {
-					"referenceName": "AzureDatabrickskel5",
+					"referenceName": "SqlServerKelompok1",
 					"type": "LinkedServiceReference"
 				}
 			}
