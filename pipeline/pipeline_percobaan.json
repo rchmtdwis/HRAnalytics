@@ -286,7 +286,7 @@
 				"type": "DatabricksNotebook",
 				"dependsOn": [
 					{
-						"activity": "Stored procedure1",
+						"activity": "Drop FK and Create Table",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -309,7 +309,7 @@
 				}
 			},
 			{
-				"name": "Stored procedure1",
+				"name": "Drop FK and Create Table",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
