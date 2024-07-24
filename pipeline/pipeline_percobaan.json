@@ -1,0 +1,332 @@
+{
+	"name": "pipeline_percobaan",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data Employee Survey",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "surveydata",
+							"folder_name": "EmployeeSurveyCSV",
+							"file_name": "employee_survey_data.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "processdata",
+							"folder_name": {
+								"value": "@concat('staging/employee/',utcnow('yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "employee_survey_data.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data Manager Survey",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "surveydata",
+							"folder_name": "ManagerSurveyCSV",
+							"file_name": "manager_survey_data.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "processdata",
+							"folder_name": {
+								"value": "@concat('staging/manager/',utcnow('yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "manager_survey_data.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data General",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerKelompok1",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "general_data"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "processdata",
+							"folder_name": {
+								"value": "@concat('staging/general/',utcnow('yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "general_data.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data Attendance",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "MySqlKelompok1",
+						"type": "DatasetReference",
+						"parameters": {
+							"table_name": "Attendance"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ADLS_CSV_Kel1",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "processdata",
+							"folder_name": {
+								"value": "@concat('staging/attendance/',utcnow('yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "attendance.csv",
+							"header": "True",
+							"delimiter": ","
+						}
+					}
+				]
+			},
+			{
+				"name": "Transform and Load",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy data Manager Survey",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy data General",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy data Attendance",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy data Employee Survey",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok_5@dunialcwefdit.onmicrosoft.com/Kelompok1/FinalProject/MergeFact"
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabrickskel5",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
